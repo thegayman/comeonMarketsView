@@ -76,17 +76,16 @@
 						<dt>购买数量:</dt>
 						<dd>
 							<input id="count" name="count" value="1" maxlength="4"
-								onpaste="return false;" type="text">
+								onpaste="return false;" type="text" v-model="produceNum" @change="produceNumChange">
 								<div>
-									<span id="increase" class="increase">&nbsp;</span> <span
-										id="decrease" class="decrease">&nbsp;</span>
+									<span id="increase" class="increase" @click="produceNumAdd">&nbsp;</span>
+									<span id="decrease" class="decrease" @click="produceNumRuduce">&nbsp;</span>
 								</div>
 						</dd>
-						<dd>件</dd>
+						<dd>件|</dd>库存:{{ stock }}
 					</dl>
 					<div class="buy">
-						<input id="addCart" style="background:" class="addCart" value="加入购物车" type="button"
-							onclick="saveCart()">
+						<input id="addCart" style="background:" class="addCart" value="加入购物车" type="button" @click="addcar">
 					</div>
 				</div>
 			</form>
@@ -121,8 +120,11 @@ export default {
   name: 'shopdetail',
   data () {
     return {
+			produceNum:"",
+			stock:80
     }
-  }, created (){
+  },
+	created (){
       this.$emit('viewIn',"购彩资讯");
       this.$http.get('http://localhost:9090/user/message') .then(
         function(response){
@@ -132,10 +134,24 @@ export default {
           console.log("error")
         }
       )
-    } ,
-    components: {
-     leftCategory
-    }
+    },
+	components: {
+   leftCategory
+ 	},
+ 	methods:{
+		addcar(){
+			//el表达式,加入购物车,需要库存>0
+		},
+		produceNumAdd(){
+			this.stock>0?this.produceNum++:this.produceNum+=0
+		},
+		produceNumRuduce(){
+			this.stock>0?this.produceNum--:this.produceNum-=0
+		},
+		produceNumChange(){
+			//el表达式,验证数量为数字以及<=库存
+		}
+	}
 }
 </script>
 
@@ -234,7 +250,7 @@ div.score10 {
 	height: 20px;
 	background: url(../assets/review.gif) 0px -360px no-repeat;
 }
- 
+
 
 /* ---------- ProductContent ---------- */
 

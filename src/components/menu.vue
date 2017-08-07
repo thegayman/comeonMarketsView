@@ -14,7 +14,7 @@
                   <router-link to="/register">注册 </router-link>|
     				</li>
      <li id="headerLogin" class="headerLogin" style="display: list-item;">
-        欢迎您：小丰丰
+        {{ username }}
       </li>
       <li id="headerRegister" class="headerRegister"
         style="display: list-item;">
@@ -32,7 +32,7 @@
   </ul>
 </div>
 <div class="cart">
-<router-link to="/cart">我的购物车 </router-link>
+<router-link to="/cart">我的购物车{{ shopcarcount }} </router-link>
 </div>
 <div class="phone">
   客服热线: <strong>96008/53277764</strong>
@@ -60,6 +60,14 @@ export default {
   name: 'topmenu',
   data () {
     return {
+    }
+  },
+  computed:{
+    username(){
+      return this.$store.state.username
+    },
+    shopcarcount(){
+      return this.$store.state.shopcarcount
     }
   }
 }

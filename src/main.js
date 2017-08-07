@@ -8,15 +8,20 @@ import VueRouter from 'vue-router'
 import VueSource from 'vue-resource'
 
 /*bootstrap-vue文件*/
-import BootstrapVue from 'bootstrap-vue';
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
-Vue.use(BootstrapVue);
+// import BootstrapVue from 'bootstrap-vue';
+// import 'bootstrap/dist/css/bootstrap.css'
+// import 'bootstrap-vue/dist/bootstrap-vue.css'
+// Vue.use(BootstrapVue);
 
 Vue.config.productionTip = false
 
 Vue.use(VueRouter)
 Vue.use(VueSource)
+
+/*vuex store*/
+import Vuex from 'vuex'
+import store from './vuex/store'
+Vue.use(Vuex)
 
 const  router = new VueRouter({
   mode:"history",
@@ -25,6 +30,7 @@ const  router = new VueRouter({
 /* eslint-disable no-new */
 new Vue({
   router,
+  store,
   el: '#app',
   template: '<App/>',
   components: { App }
