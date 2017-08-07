@@ -6,7 +6,6 @@
         <li id="headerLogin" class="headerLogin" style="display: list-item;">
 
               <router-link to="/login">登录 </router-link>
-
               |
     				</li>
     				<li id="headerRegister" class="headerRegister"
@@ -41,14 +40,11 @@
 <div class="span24">
 <ul class="mainNav">
   <li> <router-link  to="/"><a href="#">首页</a></router-link>   |</li>
-  <li> <router-link  to="/productList"><a 	href="#">女装男装 </a> </router-link>|</li>
+  <li v-for="cetegory in cetegorys">
+      <router-link :to="{ name: 'shoppage', params: {cid:cetegory.cid} }">
+     {{cetegory.cname}}
+     </router-link>|</li>
 
-  <li> <router-link  to="/productList"><a 	href="#">运动户外 </a> </router-link>|</li>
-  <li> <router-link  to="/productList"><a 	href="#">珠宝配饰 </a> </router-link>|</li>
-  <li> <router-link  to="/productList"><a 	href="#">手机数码 </a> </router-link>|</li>
-
-  <li> <router-link  to="/productList"><a 	href="#">家电电脑</a> </router-link>|</li>
-  <li> <router-link  to="/productList"><a 	href="#">护肤彩妆</a> </router-link>|</li>
 </ul>
 </div>
 </div>
@@ -60,6 +56,7 @@ export default {
   name: 'topmenu',
   data () {
     return {
+      cetegorys:[]
     }
   },
   computed:{
@@ -69,7 +66,17 @@ export default {
     shopcarcount(){
       return this.$store.state.shopcarcount
     }
-  }
+  }, created (){
+
+      this.$http.get('http://localhost:9090/category/list').then(
+        function(response){
+        this.cetegorys = response.body;
+        },
+        function(response){
+          console.log("error")
+        }
+      )
+    }
 }
 </script>
 
