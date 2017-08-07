@@ -1,5 +1,4 @@
   <template>
-
     <div class="container index">
      	<div class="span24">
             <div id="newProduct" class="newProduct clearfix">
@@ -84,7 +83,6 @@
     			</div>
     		</div>
     	</div>
- 
   </template>
 
   <script>
