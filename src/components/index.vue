@@ -18,7 +18,6 @@
                      <img
     								v-bind:src='"http://localhost:9090/"+ product.image'
     								style="display: block;">
-            
                   </router-link>
                 </li>
     				</ul>

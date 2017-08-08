@@ -3,7 +3,8 @@
     <div id="result" class="result table clearfix">
       <ul>
       <li v-for="product in productList">
-         <router-link :to="{ name: 'shopdetail', params: {productid:product.pid} }"> <img    v-bind:src='"http://localhost:9090/"+ product.image'
+         <router-link :to="{ name: 'shopdetail', params: {productid:product.pid} }">
+            <img    v-bind:src='"http://localhost:9090/"+ product.image'
                         style="width: px;height:170px; display: inline-block;"/>
                         <span style='color:green'>{{product.pname}}</span>
                         <span class="price"> 商城价：

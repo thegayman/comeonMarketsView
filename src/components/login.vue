@@ -22,13 +22,13 @@
 							<tbody>
 								<tr>
 									<th>用户名:</th>
-									<td><input type="text" id="username" name="user.username"
+									<td><input type="text" id="username"  v-model="username" name="user.username"
 										class="text" maxlength="20" ></td>
 								</tr>
 								<tr>
 									<th>密&nbsp;&nbsp;码:</th>
 									<td><input type="password" id="password"
-										name="user.password" class="text" maxlength="20"
+										name="user.password" v-model="password"  class="text" maxlength="20"
 										autocomplete="off"></td>
 								</tr>
 								<tr>
@@ -40,7 +40,7 @@
 								</tr>
 								<tr>
 									<th>&nbsp;</th>
-									<td><input type="submit" class="submit" value="登 录"></td>
+									<td><input type="button" v-on:click="login" class="submit" value="登 录"></td>
 
 								</tr>
 								<tr class="register">
@@ -61,7 +61,7 @@
 				</div>
 			</div>
 		</div>
-    <td><button @click="login">登陆</button></td>
+
 	</div>
 </template>
 
@@ -70,19 +70,34 @@ export default {
   name: 'login',
   data () {
     return {
+      username:"",
+      password:""
     }
   },
   methods:{
     login(){
-      sessionStorage.username="ddd";
+      // sessionStorage.username="ddd";
+      var params = new URLSearchParams();
+      params.append('username', this.username);
+      params.append('password',  this.password);
+      this.$ajax.post('http://localhost:9090/user/login',params).then(res=>{
+        alert(res.data[0].message);
+        if(res.data[0].code ==0){
+            sessionStorage.uid = res.data[0].user.uid;
+            sessionStorage.username= res.data[0].user.username;
+            var username=sessionStorage.username;
+            if(username!=undefined){
+              this.$store.commit("login",username)
+            }
+        }
+      });
     }
   },
   created(){
     var username=sessionStorage.username;
-    alert(username);
     if(username!=undefined){
       this.$store.commit("login",username)
-    }
+    } 
   }
 }
 </script>
