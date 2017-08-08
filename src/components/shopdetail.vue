@@ -10,7 +10,7 @@
 					rel="gallery">
 					<div class="zoomPad">
 						<img style="opacity: 1;" title="" class="medium"
-							src="./../assets/shop.jpg"/><div
+								v-bind:src='"http://localhost:9090/"+ product.image'/><div
 								style="display: block; top: 0px; left: 162px; width: 0px; height: 0px; position: absolute; border-width: 1px;"
 								class="zoomPup"></div>
 							<div
@@ -32,23 +32,23 @@
 				呵呵呵:{{ pid }}
 			</div>
 			<div class="name">
-				新式貂皮
+				{{product.pname}}
 			</div>
 			<div class="sn">
 				<div>
 					编号：
-					123
+							{{product.pid}}
 				</div>
 			</div>
 			<div class="info">
 				<dl>
 					<dt>商城价:</dt>
 					<dd>
-						<strong>￥：122222元
+						<strong>￥：	{{product.shop_price}}元
 						</strong> 参 考 价：
 						<del>
 							￥
-							122222
+								{{product.market_price}}
 							元
 						</del>
 					</dd>
@@ -82,7 +82,7 @@
 									<span id="decrease" class="decrease" @click="produceNumRuduce">&nbsp;</span>
 								</div>
 						</dd>
-						<dd>件|</dd>库存:{{ stock }}
+						<dd>件|</dd>库存:{{ product.stock}}
 					</dl>
 					<div class="buy">
 						<input id="addCart" style="background:" class="addCart" value="加入购物车" type="button" @click="addcar">
@@ -92,21 +92,17 @@
 			<div id="bar" class="bar">
 				<ul>
 					<li id="introductionTab"><a href="#introduction">商品介绍</a></li>
-
 				</ul>
 			</div>
-
 			<div id="introduction" name="introduction" class="introduction">
 				<div class="title">
-					<strong>不错不错</strong>
+					<strong>{{product.pdesc}}</strong>
 				</div>
 				<div>
 					<img
-						src="./../assets/shop.jpg"/>
+						v-bind:src='"http://localhost:9090/"+ product.image'/>
 				</div>
 			</div>
-
-
 
 		</div>
 	</div>
@@ -121,8 +117,9 @@ export default {
   name: 'shopdetail',
   data () {
     return {
-			produceNum:0,
-			stock:80
+			product:{},
+			stock:0,
+			produceNum:""
     }
   },
 	created (){
@@ -130,14 +127,19 @@ export default {
 				sessionStorage.pid=this.$route.params.pid;
 			}
       this.$emit('viewIn',"购彩资讯");
-      this.$http.get('http://localhost:9090/user/message') .then(
-        function(response){
-        this.msg = response.bodyText;
-        },
-        function(response){
-          console.log("error")
-        }
-      )
+			var params = new URLSearchParams();
+			if (this.$route.params.productid !=undefined) {
+				params.append('pid', this.$route.params.productid);
+			 }
+
+			this.$ajax.post('http://localhost:9090/product/findById',params).then( res=>{
+						console.log(res.data);
+
+				if (res.data !=undefined) {
+					 this.product=res.data ;
+					 this.stock = this.product.stock;
+				 }
+			});
     },
 	components: {
    leftCategory

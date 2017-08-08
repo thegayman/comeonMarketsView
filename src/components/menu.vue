@@ -93,6 +93,11 @@ export default {
           console.log("error")
         }
       )
+    },methods:{
+       goto: function (event) {
+
+         this.$router.go(0);
+       }
     }
 }
 </script>

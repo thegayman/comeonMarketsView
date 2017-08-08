@@ -27,8 +27,7 @@ import Vuex from 'vuex'
 import store from './vuex/store'
 Vue.use(Vuex)
 
-const  router = new VueRouter({
-  mode:"history",
+const  router = new VueRouter({ 
   routes: routes
 })
 
