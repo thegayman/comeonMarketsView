@@ -131,8 +131,8 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
 div.cart .step {
 	height: 38px;
 	margin-bottom: 10px;
@@ -146,9 +146,7 @@ div.cart .step li {
 	padding-left: 50px;
 	font-size: 14px;
 	font-family: "Microsoft YaHei";
-}
-
-div.cart .step .current {
+}div.cart .step .current {
 	color: #ffffff;
 }
 
@@ -162,9 +160,7 @@ div.cart .step2 {
 
 div.cart .step3 {
 	background: url(../assets/cart.gif) 0px -76px no-repeat;
-}
-
-div.cart table {
+}div.cart table {
 	width: 100%;
 	margin-bottom: 10px;
 }
@@ -177,9 +173,7 @@ div.cart table th {
 	text-align: left;
 	border: solid 1px #e6e4e3;
 	background-color: #fafafa;
-}
-
-div.cart table td {
+}div.cart table td {
 	line-height: 20px;
 	padding: 4px;
 	border: solid 1px #f1f1f1;
@@ -188,9 +182,7 @@ div.cart table td {
 div.cart table img {
 	width: 60px;
 	height: 60px;
-}
-
-div.cart dl {
+}div.cart dl {
 	height: 20px;
 	line-height: 20px;
 	padding: 4px 10px;
@@ -207,9 +199,7 @@ div.cart dt {
 div.cart dd {
 	float: left;
 	margin-right: 10px;
-}
-
-div.cart .quantity input {
+}div.cart .quantity input {
 	width: 30px;
 	height: 18px;
 	line-height: 18px;
@@ -291,4 +281,5 @@ div.cart p {
 	margin-bottom: 10px;
 	border-top: 1px solid #e4e4e4;
 	border-bottom: 1px solid #e4e4e4;
-}</style>
+}
+</style>

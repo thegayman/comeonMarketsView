@@ -1,5 +1,5 @@
 <template>
-<div class="container footer">
+  <div class="container footer">
       <div class="span24">
         <div class="footerAd">
           <img src="./../assets/footer.jpg"
@@ -22,7 +22,7 @@
       <div class="span24">
         <div class="copyright">Copyright©2005-2015 网上商城 版权所有</div>
       </div>
-    </div>
+  </div>
 </template>
 
 <script>

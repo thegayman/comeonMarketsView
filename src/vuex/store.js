@@ -5,8 +5,8 @@ Vue.use(Vuex)
 
 const store=new Vuex.Store({
   state:{
-    username:"亲,请登录",
-    shopcarcount:""
+    username:"亲,请登录!",
+    shopcarcount:0
   },
   mutations:{
     login(state,msg){

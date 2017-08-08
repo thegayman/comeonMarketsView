@@ -50,7 +50,9 @@
     		<div class="span24">
     			<div class="friendLink">
     				<dl>
-    					<dt>新手指南</dt>
+    					<dd>
+                <a target="_blank">新手指南</a> |
+              </dd>
     					<dd>
     						<a target="_blank">支付方式</a> |
     					</dd>
@@ -76,8 +78,8 @@
     						<a target="_blank">亿家卡</a> |
     					</dd>
 
-    					<dd class="more">
-    						<a>更多</a>
+    					<dd >
+    						<a target="_blank">更多</a>
     					</dd>
     				</dl>
     			</div>
@@ -102,7 +104,7 @@
 
   <!-- Add "scoped" attribute to limit CSS to this component only -->
   <style scoped>
-
+/**/
 
 div.index .newProduct {
 	margin-bottom: 10px;
@@ -113,7 +115,6 @@ div.index .newProduct .title {
 	height: 40px;
 	float: left;
 	margin-bottom: 10px;
-	/* background: url(../images/index.gif) 0px -270px no-repeat; */
 	background-color: #AB7156;
 
 }
@@ -142,7 +143,6 @@ div.index .newProduct .tab {
 	float: left;
 	margin-bottom: 10px;
 	overflow: hidden;
-	/* background: url(../images/index.gif) 0px -330px repeat-x; */
 	background-color: #AB7156;
 }
 

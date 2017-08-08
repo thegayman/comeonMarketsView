@@ -173,17 +173,8 @@ div.productContent .buy .addCart {
 }
 @charset "utf-8";
 
-/*
- * Copyright 2005-2013 dhcc.com.cn. All rights reserved.
- * Support: http://www.dhcc.com.cn
- * License: http://www.dhcc.com.cn/license
- *
- * Style - Product
- * Version: 3.0
- */
 
 
-/* ---------- Score ---------- */
 
 div.score0 {
 	width: 60px;
@@ -252,7 +243,6 @@ div.score10 {
 }
 
 
-/* ---------- ProductContent ---------- */
 
 div.productContent .productImage {
 	width: 302px;
