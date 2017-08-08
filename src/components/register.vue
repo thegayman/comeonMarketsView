@@ -181,7 +181,7 @@ export default {
       //     data:params
       //   })
     },checkpassword: function (event) {
-      alert("1");
+
       console.log(this.repassword);
       console.log(this.User.password);
        if(!(this.repassword == this.User.password)){

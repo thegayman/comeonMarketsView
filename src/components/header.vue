@@ -34,8 +34,8 @@ import Topmenu from './menu'
 export default {
   name: 'headers',
   data () {
-    return {
-    }
+    return{ 
+   }
   },
   components: {
    Topmenu

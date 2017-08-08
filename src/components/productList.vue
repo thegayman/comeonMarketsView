@@ -3,63 +3,7 @@
 
   		<div class="container productList">
     		<leftCategory></leftCategory>
-  			<div class="span18 last">
-  				<div id="result" class="result table clearfix">
-  					<ul>
-            <li>
-              <router-link to="/shopdetail"> <img  src="./../assets/shop.jpg"
-            									style="width: px;height:170px; display: inline-block;"/>
-                              <span style='color:green'>超级大内内</span> <span class="price"> 商城价：
-  											￥1234元
-  									</span>
-               </router-link>
-
-           </li>
-           <li>
-             <router-link to="/shopdetail"> <img  src="./../assets/shop.jpg"
-                            style="width: px;height:170px; display: inline-block;"/>
-                             <span style='color:green'>超级大内内</span> <span class="price"> 商城价：
-                      ￥1234元
-                  </span>
-              </router-link>
-
-          </li>
-          <li>
-            <router-link to="/shopdetail"> <img  src="./../assets/shop.jpg"
-                            style="width: px;height:170px; display: inline-block;"/>
-                            <span style='color:green'>超级大内内</span> <span class="price"> 商城价：
-                      ￥1234元
-                  </span>
-             </router-link>
-
-         </li>
-         <li>
-           <router-link to="/shopdetail"> <img  src="./../assets/shop.jpg"
-                           style="width: px;height:170px; display: inline-block;"/>
-                           <span style='color:green'>超级大内内</span> <span class="price"> 商城价：
-                     ￥1234元
-                 </span>
-            </router-link>
-
-        </li>
-        <li>
-          <router-link to="/shopdetail"> <img  src="./../assets/shop.jpg"
-                          style="width: px;height:170px; display: inline-block;"/>
-                          <span style='color:green'>超级大内内</span> <span class="price"> 商城价：
-                    ￥1234元
-                </span>
-           </router-link>
-
-       </li>
-          	</ul>
-  				</div>
-  				<div class="pagination">
-          <span>第1页
-          					</span>
-                      <span>{{msg}}   </span>
-  				</div>
-
-  			</div>
+  			<router-view></router-view>
   		</div>
     </div>
 
@@ -77,20 +21,9 @@ Vue.use(VueSource)
 export default {
   name: 'hello',
   data () {
-           return{
-            msg: "this.message"
-  }
-  }, created (){
-      this.$emit('viewIn',"购彩资讯");
-      this.$http.get('http://localhost:9090/user/message') .then(
-        function(response){
-        this.msg = response.bodyText;
-        },
-        function(response){
-          console.log("error")
-        }
-      )
-    } ,
+    return{     
+   }
+  } ,
     components: {
      leftCategory
     }
