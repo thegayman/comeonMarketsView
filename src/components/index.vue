@@ -13,7 +13,9 @@
       				</ul>
     				<ul class="tabContent" style="display: block;">
     						<li v-for="product in productList">
-                   <router-link to="/shopdetail"><img
+
+               <router-link :to="{ name: 'shopdetail', params: {productid:product.pid} }">
+                     <img
     								v-bind:src='"http://localhost:9090/"+ product.image'
     								style="display: block;"></router-link  >
                   </li>
@@ -33,7 +35,7 @@
     				</ul>
     				<ul class="tabContent" style="display: block;">
               <li v-for="product in timeproductList">
-                 <router-link to="/shopdetail"><img
+                  <router-link :to="{ name: 'shopdetail', params: {productid:product.pid} }"><img
                   v-bind:src='"http://localhost:9090/"+ product.image'
                   style="display: block;"></router-link  >
                 </li>

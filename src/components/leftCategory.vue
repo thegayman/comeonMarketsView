@@ -5,12 +5,12 @@
   <div class="hotProductCategory">
   <dl v-for="cetegory in cetegorys">
         <dt>
-        <router-link :to="{ name: 'shoppage', params: {csid:cetegory.cid} }">
+        <router-link :to="{ name: 'shoppage', params: {cid:cetegory.cid} }">
           {{cetegory.firstname}}
            </router-link>
          </dt>
         <dd v-for="second in cetegory.scondname">
-          <router-link :to="{ name: 'shoppage', params: {csid:second.csid} }">
+          <router-link :to="{ name: 'shoppagecs', params: {csid:second.csid}}">
            {{second.secon}}
            </router-link>
         </dd>
