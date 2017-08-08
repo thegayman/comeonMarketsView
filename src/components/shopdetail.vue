@@ -29,7 +29,7 @@
 								class="zoomPreload">Loading zoom</div>
 					</div>
 				</a>
-
+				呵呵呵:{{ pid }}
 			</div>
 			<div class="name">
 				新式貂皮
@@ -116,15 +116,19 @@
 
 <script>
 import leftCategory from './leftCategory'
+/*sessionStorage.pid为商品的id*/
 export default {
   name: 'shopdetail',
   data () {
     return {
-			produceNum:"",
+			produceNum:0,
 			stock:80
     }
   },
 	created (){
+			if(this.$route.params.pid!=undefined){
+				sessionStorage.pid=this.$route.params.pid;
+			}
       this.$emit('viewIn',"购彩资讯");
       this.$http.get('http://localhost:9090/user/message') .then(
         function(response){
@@ -140,7 +144,34 @@ export default {
  	},
  	methods:{
 		addcar(){
-			//el表达式,加入购物车,需要库存>0
+			if(sessionStorage.uid!=undefined){
+				//el表达式,加入购物车,需要库存>0
+				var ShoppingCart=new JSON();
+				ShoppingCart.carId=sessionStorage.uid;
+				ShoppingCart.pid=sessionStorage.pid;
+				ShoppingCart.count=this.produceNum;
+				ShoppingCart.proPrice=1222222;
+				this.$ajax({
+	        method:"get",
+	        url:"http://localhost:9090/shopcar/add",
+	        data:{
+						ShoppingCart:ShoppingCart
+	        }
+	      })
+			}else{
+				var params = new URLSearchParams();
+				// alert("请先登录");
+				var ShoppingCart=new Object();
+				// ShoppingCart.carId=sessionStorage.uid;
+				// ShoppingCart.pid=sessionStorage.pid;
+				ShoppingCart.carId=1;
+				ShoppingCart.pid=1;
+				ShoppingCart.count=this.produceNum;
+				ShoppingCart.proPrice=1222222;
+				params.append('ShoppingCart', JSON.stringify(ShoppingCart));
+				this.$ajax.post('http://localhost:9090/shopcar/add',params );
+			}
+
 		},
 		produceNumAdd(){
 			this.stock>0?this.produceNum++:this.produceNum+=0

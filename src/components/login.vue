@@ -74,7 +74,14 @@ export default {
   },
   methods:{
     login(){
-      this.$store.commit("login","dddd")
+      sessionStorage.username="ddd";
+    }
+  },
+  created(){
+    var username=sessionStorage.username;
+    alert(username);
+    if(username!=undefined){
+      this.$store.commit("login",username)
     }
   }
 }

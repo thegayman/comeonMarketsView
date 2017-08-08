@@ -31,10 +31,11 @@ const routers = [
     name:"productList",
     component: productList,
     children: [
-        {path : '/shoppage', name: 'shoppage', component:shoppage}, 
+        {path : '/shoppage', name: 'shoppage', component:shoppage},
       ]
   },{
     path: '/shopdetail',
+    name:'shopdetail',
     component: shopdetail
   },{
     path: '/login',

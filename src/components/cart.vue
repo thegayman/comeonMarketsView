@@ -12,7 +12,6 @@
   							<th>小计</th>
   							<th>操作</th>
   						</tr>
-
   							<tr>
   								<td width="60">  <img
       								src="./../assets/shop.jpg" > </td>
