@@ -12,14 +12,15 @@
   							<th>小计</th>
   							<th>操作</th>
   						</tr>
-  							<tr>
-  								<td width="60">  <img
-      								src="./../assets/shop.jpg" > </td>
-  								<td><a target="_blank">121</a></td>
-  								<td>￥121
+  							<tr v-for="produce in produces">
+  								<td width="60">
+                      <img    v-bind:src='"http://localhost:9090/"+ produce.image' > </td>
+  								<td><a target="_blank">{{ produce.pname}}</a></td>
+  								<td>
+                    ￥{{ produce.shop_price}}
   								</td>
-  								<td class="quantity" width="60">11</td>
-  								<td width="140"><span class="subtotal">￥123213</span></td>
+  								<td class="quantity" width="60">{{produce.count}}</td>
+  								<td width="140"><span class="subtotal">￥{{produce.shop_price*produce.count}}</span></td>
   								<td><a
   									href="#"
   									class="delete">删除</a></td>
@@ -55,7 +56,16 @@ export default {
   name: 'catt',
   data () {
     return {
+      produces:[]
     }
+  },created(){
+    // var uid=sessionStorage.uid;
+    var uid=1;
+    var params = new URLSearchParams();
+    params.append('uid', JSON.stringify(uid));
+    this.$ajax.post('http://localhost:9090/shopcar/show',params).then(res=>{
+      this.produces=res.data
+    });
   }
 }
 </script>

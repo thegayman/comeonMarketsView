@@ -172,6 +172,8 @@ export default {
 				ShoppingCart.proPrice=1222222;
 				params.append('ShoppingCart', JSON.stringify(ShoppingCart));
 				this.$ajax.post('http://localhost:9090/shopcar/add',params );
+				alert("添加成功");
+				sessionStorage.carnum=5;
 			}
 
 		},

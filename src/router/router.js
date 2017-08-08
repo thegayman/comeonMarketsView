@@ -32,7 +32,7 @@ const routers = [
     component: productList,
     children: [
         {path : '/shoppage/:cid', name: 'shoppage', component:shoppage},
-          {path : '/shoppage/:csid', name: 'shoppagecs', component:shoppage},
+        {path : '/shoppage/:csid', name: 'shoppagecs', component:shoppage},
         {path : '/shoppage/1', name: 'shoppage', component:shoppage},
         {path : '/shoppage/2', name: 'shoppage', component:shoppage},
         {path : '/shoppage/3', name: 'shoppage', component:shoppage},

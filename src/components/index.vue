@@ -17,9 +17,8 @@
                <router-link :to="{ name: 'shopdetail', params: {productid:product.pid} }">
                      <img
     								v-bind:src='"http://localhost:9090/"+ product.image'
-    								style="display: block;"> -->
-                  <router-link :to="{ name: 'shopdetail', params: {pid:product.pid} }">
-                    <img v-bind:src='"http://localhost:9090/"+ product.image' style="display: block;">
+    								style="display: block;">
+            
                   </router-link>
                 </li>
     				</ul>

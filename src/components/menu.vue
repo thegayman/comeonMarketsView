@@ -11,8 +11,11 @@
             <b-link class="navbar-brand" to="/">
               <span>首页</span>
             </b-link>
-            <b-link class="navbar-brand" to="/productList" v-for="cetegory in cetegorys">
-             <span>{{ cetegory.cname }}</span>
+            <li v-for="cetegory in cetegorys">
+                <router-link :to="{ name: 'shoppage', params: {cid:cetegory.cid} }">
+               {{cetegory.cname}}
+             </router-link>|</li>
+
            </b-link>
           </b-navbar>
       </div>
@@ -82,7 +85,11 @@ export default {
       return this.$store.state.username
     },
     shopcarcount(){
-      return this.$store.state.shopcarcount
+      if(sessionStorage.carnum!=undefined){//sessionStorage.carnum为购物车数量
+        return sessionStorage.carnum
+      }else{
+        return this.$store.state.shopcarcount
+      }
     }
   }, created (){
       this.$http.get('http://localhost:9090/category/list').then(
