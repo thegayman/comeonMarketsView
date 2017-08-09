@@ -41,9 +41,9 @@
   				<div class="bottom">
   					<a href="#"
   						id="clear" class="clear">清空购物车</a>
-              <!-- <router-link :to="{ name: 'order', params: {produceList:produces}}"> -->
-                <a href="#" id="submit" class="submit" @click="submitOrder">提交订单</a>
-              <!-- </router-link> -->
+              <router-link :to="{ name: 'order', params: {produceList:produces}}">
+                <a href="#" id="submit" class="submit" >提交订单</a>
+              </router-link>
   				</div>
   			</div>
         <!-- <div class="span24">
@@ -80,18 +80,19 @@ export default {
       alert("请先登录");
     }
 
-  },methods:{
-    submitOrder(){
-      //处理
-      //跳转
-      if(this.ischeck){
-        this.$router.push({ name: 'order', params: {produceList:this.produces}});
-      }else{
-        alert("请选择商品");
-      }
-
-    }
   }
+  // ,methods:{
+  //   submitOrder(){
+  //     //处理
+  //     //跳转
+  //     if(this.ischeck){
+  //       alert("提交成功");
+  //       this.$router.push({ name:'order', params: {produceList:this.produces}});
+  //     }else{
+  //       alert("请选择商品");
+  //     }
+  //   }
+  // }
 }
 </script>
 

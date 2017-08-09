@@ -6,7 +6,7 @@
             <router-link  to="/login"><span style="line-heigtht">登录</span></router-link>|
             <router-link   to="/register">注册 </router-link>
             <router-link to="/cart">我的订单</router-link>
-            <a @click="removeUser" href="javascript:void(0)">退出</a>|
+            <a  href="javascript:void(0)">退出</a>|
             <router-link to="/shop">会员中心 </router-link>
             <a>购物指南</a>
             <a>关于我们</a>
@@ -37,12 +37,13 @@ export default {
    shopcarcount(){
      return this.$store.state.shopcarcount
    }
- },methods:{
-   removeUser(){
-     sessionStorage.removeItem("username");
-     this.$store.commit("login","亲,请登录!");
-   }
  }
+ // ,methods:{
+ //   removeUser(){
+ //     sessionStorage.removeItem("username");
+ //     this.$store.commit("login","亲,请登录!");
+ //   }
+ // }
 }
 </script>
 

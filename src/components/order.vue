@@ -85,12 +85,12 @@
   								width="204" height="51" border="0" />
   							</a>
                 </router-link> -->
-                <!-- <router-link :to="{ name: 'play', params: {produceList:produceList,address:address,personName:personName,phone:phone,total:total}}"> -->
+                <router-link :to="{ name: 'play', params: {produceList:produceList,address:address,personName:personName,phone:phone,total:total}}">
                   <a href="#" @click="orderSub">
       								<img 	src="./../assets/finalbutton.gif"
       								width="204" height="51" border="0" />
       							</a>
-                <!-- </router-link> -->
+                </router-link>
   						</p>
   					</div>
   				</form>
