@@ -85,11 +85,7 @@ export default {
       return this.$store.state.username
     },
     shopcarcount(){
-      if(sessionStorage.carnum!=undefined){//sessionStorage.carnum为购物车数量
-        return sessionStorage.carnum
-      }else{
         return this.$store.state.shopcarcount
-      }
     }
   }, created (){
       this.$http.get('http://localhost:9090/category/list').then(
@@ -99,10 +95,17 @@ export default {
         function(response){
           console.log("error")
         }
-      )
+      );
+      /*购物车数量初始化*/
+      if(sessionStorage.uid!=undefined){
+        var params = new URLSearchParams();
+        params.append('uid', sessionStorage.uid);
+        this.$ajax.post('http://localhost:9090/shopcar/querycount',params).then(res=>{
+          this.$store.commit("addcar",res.data);
+        });
+      }
     },methods:{
        goto: function (event) {
-
          this.$router.go(0);
        }
     }

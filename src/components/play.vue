@@ -10,8 +10,9 @@
   		<div class="wrap">
   			<div class="main">
   				<div class="title">
-  					<strong>订单编号: #123123&nbsp;&nbsp;&nbsp;&nbsp;您需支付金额:￥1232元
+  					<strong>您需支付金额:￥{{total}}元
   					</strong>
+            <!-- 订单编号: #123123&nbsp;&nbsp;&nbsp;&nbsp; -->
   				</div>
   				<!-- 回写登录失败信息 -->
   				<div>
@@ -26,17 +27,17 @@
   						<tbody>
   							<tr>
   								<th>银行账户:</th>
-  								<td><input type="text" id="username" name="user.username"
+  								<td><input type="text" id="username" name="user.username" v-model="username"
   									class="text" maxlength="20"></td>
   							</tr>
   							<tr>
   								<th>账户密码:</th>
-  								<td><input type="password" id="password" name="user.password"
+  								<td><input type="password" id="password" name="user.password" v-model="psd"
   									class="text" maxlength="20" autocomplete="off"></td>
   							</tr>
   							<tr>
   								<th>&nbsp;</th>
-  								<td><input type="submit" class="submit" value="确认支付"></td>
+  								<td><input type="button" class="submit" value="确认支付" @click="pay"></td>
   							</tr>
   						</tbody>
   					</table>
@@ -52,6 +53,28 @@ export default {
   name: 'play',
   data () {
     return {
+      produceList:[],
+      address:"广东广州市天河区元岗智汇园310号",
+      personName:"小丰丰",
+      phone:15488459965,
+      total:0,
+      username:"",
+      psd:""
+    }
+  },created(){
+    this.produceList=this.$route.params.produceList;
+    this.address=this.$route.params.address;
+    this.personName=this.$route.params.personName;
+    this.phone=this.$route.params.phone;
+    this.total=this.$route.params.total;
+  },methods:{
+    pay(){
+      var params = new URLSearchParams();
+      params.append('order', JSON.stringify());
+      params.append('produceList',produceList);
+      this.$ajax.post('http://localhost:9090/orders/save',params).then(res=>{
+
+      });
     }
   }
 }

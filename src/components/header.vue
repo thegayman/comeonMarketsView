@@ -3,7 +3,6 @@
       <div class="span24" style="font-size:12px;line-height:32px" >
         <div style="float:right">
             {{ username }}&nbsp;&nbsp;&nbsp;
-
             <router-link v-if="!username" to="/login"><span style="line-heigtht">登录</span></router-link>|
             <router-link v-if="!username"  to="/register">注册 </router-link>
             <router-link to="/myorder">我的订单</router-link>

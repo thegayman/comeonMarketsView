@@ -8,6 +8,9 @@
     </div>
      <router-view></router-view>
     <footers></footers>
+
+
+
   </div>
 </template>
 

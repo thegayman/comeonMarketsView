@@ -29,7 +29,6 @@
 								class="zoomPreload">Loading zoom</div>
 					</div>
 				</a>
-				呵呵呵:{{ pid }}
 			</div>
 			<div class="name">
 				{{product.pname}}
@@ -75,7 +74,7 @@
 					<dl class="quantity">
 						<dt>购买数量:</dt>
 						<dd>
-							<input id="count" name="count" value="1" maxlength="4"
+							<input id="count" name="count"  maxlength="4" style="width:60px;"
 								onpaste="return false;" type="text" v-model="produceNum" @change="produceNumChange">
 								<div>
 									<span id="increase" class="increase" @click="produceNumAdd">&nbsp;</span>
@@ -119,22 +118,17 @@ export default {
     return {
 			product:{},
 			stock:0,
-			produceNum:""
+			produceNum:0
     }
   },
 	created (){
-			if(this.$route.params.pid!=undefined){
-				sessionStorage.pid=this.$route.params.pid;
-			}
       this.$emit('viewIn',"购彩资讯");
 			var params = new URLSearchParams();
 			if (this.$route.params.productid !=undefined) {
 				params.append('pid', this.$route.params.productid);
 			 }
-
 			this.$ajax.post('http://localhost:9090/product/findById',params).then( res=>{
 						console.log(res.data);
-
 				if (res.data !=undefined) {
 					 this.product=res.data ;
 					 this.stock = this.product.stock;
@@ -146,45 +140,54 @@ export default {
  	},
  	methods:{
 		addcar(){
-			if(sessionStorage.uid!=undefined){
+			if (this.produceNum > this.stock) {
+				alert("亲！该产品库存只剩"+this.stock+"件，请重新填写购买数量哦！");
+				return false;
+			}else if(sessionStorage.uid!=undefined){
 				//el表达式,加入购物车,需要库存>0
-				var ShoppingCart=new JSON();
-				ShoppingCart.carId=sessionStorage.uid;
-				ShoppingCart.pid=sessionStorage.pid;
-				ShoppingCart.count=this.produceNum;
-				ShoppingCart.proPrice=1222222;
-				this.$ajax({
-	        method:"get",
-	        url:"http://localhost:9090/shopcar/add",
-	        data:{
-						ShoppingCart:ShoppingCart
-	        }
-	      })
-			}else{
 				var params = new URLSearchParams();
-				// alert("请先登录");
 				var ShoppingCart=new Object();
-				// ShoppingCart.carId=sessionStorage.uid;
-				// ShoppingCart.pid=sessionStorage.pid;
-				ShoppingCart.carId=1;
-				ShoppingCart.pid=1;
+				ShoppingCart.carId=sessionStorage.uid;
+				ShoppingCart.pid=this.$route.params.productid;
 				ShoppingCart.count=this.produceNum;
-				ShoppingCart.proPrice=1222222;
+				ShoppingCart.proPrice=this.product.shop_price;
 				params.append('ShoppingCart', JSON.stringify(ShoppingCart));
 				this.$ajax.post('http://localhost:9090/shopcar/add',params );
+				//更新购物车数量
+				var params = new URLSearchParams();
+        params.append('uid', sessionStorage.uid);
+        this.$ajax.post('http://localhost:9090/shopcar/querycount',params).then(res=>{
+          this.$store.commit("addcar",res.data);
+        });
 				alert("添加成功");
-				sessionStorage.carnum=5;
+			}else{
+				alert("请先登录");
 			}
-
 		},
 		produceNumAdd(){
-			this.stock>0?this.produceNum++:this.produceNum+=0
+			if(this.stock>0 && this.produceNum < this.stock){
+				this.produceNum++;
+			}else {
+				alert("亲！您的购买数量已达上限！！");
+			}
 		},
 		produceNumRuduce(){
-			this.stock>0?this.produceNum--:this.produceNum-=0
+			if (this.produceNum == 1) {
+				return false;
+			}else if(this.stock > 0) {
+				this.produceNum--;
+			}
 		},
 		produceNumChange(){
 			//el表达式,验证数量为数字以及<=库存
+			var reg = /^[\d]+$/g;
+			if (!reg.test(this.produceNum)) {
+				alert("亲！请输入数字");
+				this.produceNum = 1;
+			}else if(this.produceNum > this.stock){
+					alert("亲！您的购买数量已达上限！！");
+					this.produceNum = 1;
+			}
 		}
 	}
 }

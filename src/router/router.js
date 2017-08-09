@@ -18,12 +18,14 @@ const routers = [
     path: '/myorder',
     component: myorder
   },{
+    name:"play",
     path: '/play',
     component: play
   },{
     path: '/cart',
     component: cart
   },{
+    name:"order",
     path: '/order',
     component: order
   },{

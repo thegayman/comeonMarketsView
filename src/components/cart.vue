@@ -5,6 +5,7 @@
   				<table>
   					<tbody>
   						<tr>
+                <th><input type="checkbox"  v-model="ischeck"></th>
   							<th>图片</th>
   							<th>商品</th>
   							<th>价格</th>
@@ -13,6 +14,7 @@
   							<th>操作</th>
   						</tr>
   							<tr v-for="produce in produces">
+                  <td><input type="checkbox" v-model="ischeck"></td>
   								<td width="60">
                       <img    v-bind:src='"http://localhost:9090/"+ produce.image' > </td>
   								<td><a target="_blank">{{ produce.pname}}</a></td>
@@ -32,15 +34,16 @@
   				</dl>
   				<div class="total">
   					<em id="promotion"></em> <em> 登录后确认是否享有优惠 </em> 赠送积分: <em
-  						id="effectivePoint"> 123</em> 商品金额: <strong
-  						id="effectivePrice">￥ 123123元
+  						id="effectivePoint"> {{total/1000}}</em> 商品金额: <strong
+  						id="effectivePrice">￥ {{total}}元
   					</strong>
   				</div>
   				<div class="bottom">
   					<a href="#"
-  						id="clear" class="clear">清空购物车</a><router-link  to="/order"> <a
-  						href="#"
-  						id="submit" class="submit">提交订单</a></router-link>
+  						id="clear" class="clear">清空购物车</a>
+              <!-- <router-link :to="{ name: 'order', params: {produceList:produces}}"> -->
+                <a href="#" id="submit" class="submit" @click="submitOrder">提交订单</a>
+              <!-- </router-link> -->
   				</div>
   			</div>
         <!-- <div class="span24">
@@ -56,16 +59,27 @@ export default {
   name: 'catt',
   data () {
     return {
-      produces:[]
+      produces:[],
+      ischeck:false,
+      total:0
     }
   },created(){
-    // var uid=sessionStorage.uid;
-    var uid=1;
+    var uid=sessionStorage.uid;
     var params = new URLSearchParams();
     params.append('uid', JSON.stringify(uid));
     this.$ajax.post('http://localhost:9090/shopcar/show',params).then(res=>{
       this.produces=res.data
+      var listTemp=res.data;
+      for(var i=0;i<listTemp.length;i++){
+        this.total+=listTemp[i].shop_price*listTemp[i].count
+      }
     });
+  },methods:{
+    submitOrder(){
+      //处理
+      //跳转
+      this.$router.push({ name: 'order', params: {produceList:this.produces}});
+    }
   }
 }
 </script>

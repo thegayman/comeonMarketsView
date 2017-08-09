@@ -9,32 +9,28 @@
   				</div>
   				<table>
   					<tbody>
-  						<tr>
-  							<th>图片</th>
-  							<th>商品</th>
-  							<th>价格</th>
-  							<th>数量</th>
-  							<th>小计</th>
-  						</tr>
-
-  							<tr>
+    						<tr>
+    							<th>图片</th>
+    							<th>商品</th>
+    							<th>价格</th>
+    							<th>数量</th>
+    							<th>小计</th>
+    						</tr>
+                <tr v-for="produce in produceList">
   								<td width="60"><input type="hidden" name="id" value="22" />
-  									<img
-  									src="./../assets/shop.jpg"/>
+  									<img v-bind:src='"http://localhost:9090/"+ produce.image' >
   								</td>
-  								<td><a target="_blank">超级大内内</a></td>
-  								<td>123</td>
-  								<td class="quantity" width="60">123</td>
-  								<td width="140"><span class="subtotal">￥123</span></td>
+  								<td><a target="_blank">{{ produce.pname}}</a></td>
+  								<td>￥{{ produce.shop_price}}</td>
+  								<td class="quantity" width="60">{{produce.count}}</td>
+  								<td width="140"><span class="subtotal">￥{{produce.shop_price*produce.count}}</span></td>
   							</tr>
-
   					</tbody>
   				</table>
   				<dl id="giftItems" class="hidden" style="display: none;">
   				</dl>
   				<div class="total">
-  					<em id="promotion"></em> 商品金额:123￥<s:property
-  							value="order.orderTotal" /></strong>
+  					<em id="promotion"></em> 商品金额:￥{{total}}
   				</div>
   				<form id="orderForm"
 
@@ -42,14 +38,14 @@
   					<input type="hidden" name="order.oid"
   						value="#123123123123" />
   					<div class="span24">
-  						<p>
+              <p>
   							收货地址：<input name="order.addr" type="text"
-  								value="广东广州市天河区元岗智汇园"
+  								v-model="address"
   								style="width:350px" /> <br /> 收货人&nbsp;&nbsp;&nbsp;：<input
   								name="order.name" type="text"
-  								value="小丰丰"
+  								v-model="personName"
   								style="width:150px" /> <br /> 联系方式：<input name="order.phone"
-  								type="text" value="15488459965"
+  								type="text" v-model="phone"
   								style="width:150px" />
 
   						</p>
@@ -83,12 +79,18 @@
   						</p>
   						<hr />
   						<p style="text-align:right">
-  						<router-link  to="/play"><a
+  						<!-- <router-link  to="/play"><a
   								href="#">
   								<img 	src="./../assets/finalbutton.gif"
   								width="204" height="51" border="0" />
   							</a>
-                </router-link>
+                </router-link> -->
+                <!-- <router-link :to="{ name: 'play', params: {produceList:produceList,address:address,personName:personName,phone:phone,total:total}}"> -->
+                  <a href="#" @click="orderSub">
+      								<img 	src="./../assets/finalbutton.gif"
+      								width="204" height="51" border="0" />
+      							</a>
+                <!-- </router-link> -->
   						</p>
   					</div>
   				</form>
@@ -102,6 +104,55 @@ export default {
   name: 'order',
   data () {
     return {
+      produceList:[],
+      address:"广东广州市天河区元岗智汇园310号",
+      personName:"小丰丰",
+      phone:15488459965,
+      total:0
+    }
+  },created(){
+    //this.$route.params.produceList是订单传过来的购物车信息
+    this.produceList=this.$route.params.produceList;
+    var listTemp=this.$route.params.produceList;
+    for(var i=0;i<this.$route.params.produceList.length;i++){
+      this.total+=listTemp[i].shop_price*listTemp[i].count
+    }
+  },methods:{
+    orderSub(){
+      //这里加入数据库中去
+      var params = new URLSearchParams();
+      var Order=new Object();
+      Order.orderTotal=this.total;
+      Order.state="未发货"
+      Order.name=this.personName;
+      Order.phone=this.phone;
+      Order.address=this.address;
+      Order.pid=sessionStorage.uid;
+      var OrderList=new Array();
+      for(var i=0;i<this.produceList.length;i++){
+          var Obj=new Object();
+          Obj.pid=this.produceList[i].pid;
+          Obj.pname=this.produceList[i].pname;
+          Obj.market_price=this.produceList[i].market_price;
+          Obj.shop_price=this.produceList[i].shop_price;
+          Obj.image=this.produceList[i].image;
+          Obj.pdesc=this.produceList[i].pdesc;
+          Obj.is_hot=this.produceList[i].is_hot;
+          Obj.pdate=this.produceList[i].pdate;
+          Obj.csid=this.produceList[i].csid;
+          Obj.stock=this.produceList[i].stock;
+          Obj.carId=this.produceList[i].carId;
+          Obj.pid1=this.produceList[i].pid1;
+          Obj.count=this.produceList[i].count;
+          Obj.proPrice=this.produceList[i].proPrice;
+          OrderList.push(Obj);
+      }
+      params.append('order', JSON.stringify(Order));
+      params.append('produceList',JSON.stringify(OrderList));
+      this.$ajax.post("http://localhost:9090/orders/save",params);
+      alert("提交成功");
+      //跳转,同时传数据过去
+      this.$router.push({ name: 'play', params: {produceList:produceList,address:address,personName:personName,phone:phone,total:total}});
     }
   }
 }
