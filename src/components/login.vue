@@ -88,6 +88,12 @@ export default {
             var username=sessionStorage.username;
             if(username!=undefined){
               this.$store.commit("login",username)
+              /*更新购物车数量*/
+              var params = new URLSearchParams();
+              params.append('uid', sessionStorage.uid);
+              this.$ajax.post('http://localhost:9090/shopcar/querycount',params).then(res=>{
+                this.$store.commit("addcar",res.data);
+              });
             }
         }
       });
@@ -97,7 +103,7 @@ export default {
     var username=sessionStorage.username;
     if(username!=undefined){
       this.$store.commit("login",username)
-    } 
+    }
   }
 }
 </script>

@@ -67,6 +67,12 @@ export default {
     this.personName=this.$route.params.personName;
     this.phone=this.$route.params.phone;
     this.total=this.$route.params.total;
+    /*更新购物车数量*/
+    var params = new URLSearchParams();
+    params.append('uid', sessionStorage.uid);
+    this.$ajax.post('http://localhost:9090/shopcar/querycount',params).then(res=>{
+      this.$store.commit("addcar",res.data);
+    });
   },methods:{
     pay(){
       var params = new URLSearchParams();

@@ -64,16 +64,22 @@ export default {
       total:0
     }
   },created(){
-    var uid=sessionStorage.uid;
-    var params = new URLSearchParams();
-    params.append('uid', JSON.stringify(uid));
-    this.$ajax.post('http://localhost:9090/shopcar/show',params).then(res=>{
-      this.produces=res.data
-      var listTemp=res.data;
-      for(var i=0;i<listTemp.length;i++){
-        this.total+=listTemp[i].shop_price*listTemp[i].count
-      }
-    });
+
+    if(sessionStorage.uid!=undefined){
+      var uid=sessionStorage.uid;
+      var params = new URLSearchParams();
+      params.append('uid', JSON.stringify(uid));
+      this.$ajax.post('http://localhost:9090/shopcar/show',params).then(res=>{
+        this.produces=res.data
+        var listTemp=res.data;
+        for(var i=0;i<listTemp.length;i++){
+          this.total+=listTemp[i].shop_price*listTemp[i].count
+        }
+      });
+    }else{
+      alert("请先登录");
+    }
+
   },methods:{
     submitOrder(){
       //处理

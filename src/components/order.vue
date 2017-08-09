@@ -152,7 +152,7 @@ export default {
       this.$ajax.post("http://localhost:9090/orders/save",params);
       alert("提交成功");
       //跳转,同时传数据过去
-      this.$router.push({ name: 'play', params: {produceList:produceList,address:address,personName:personName,phone:phone,total:total}});
+      this.$router.push({name:'play', params: {produceList:this.produceList,address:this.address,personName:this.personName,phone:this.phone,total:this.total}});
     }
   }
 }

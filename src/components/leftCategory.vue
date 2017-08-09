@@ -1,7 +1,7 @@
 
 <template>
 
-<div class="span6">
+<div class="span5">
   <div class="hotProductCategory">
   <dl v-for="cetegory in cetegorys">
         <dt>
