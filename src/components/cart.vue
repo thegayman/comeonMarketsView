@@ -84,7 +84,12 @@ export default {
     submitOrder(){
       //处理
       //跳转
-      this.$router.push({ name: 'order', params: {produceList:this.produces}});
+      if(this.ischeck){
+        this.$router.push({ name: 'order', params: {produceList:this.produces}});
+      }else{
+        alert("请选择商品");
+      }
+
     }
   }
 }

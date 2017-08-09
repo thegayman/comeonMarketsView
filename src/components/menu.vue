@@ -12,11 +12,10 @@
               <span>首页</span>
             </b-link>
             <li v-for="cetegory in cetegorys">
-                <router-link :to="{ name: 'shoppage', params: {cid:cetegory.cid} }">
-               {{cetegory.cname}}
-             </router-link>|</li>
-
-           </b-link>
+               <router-link :to="{ name: 'shoppage', params: {cid:cetegory.cid} }">
+              {{cetegory.cname}}
+               </router-link>
+             |</li>
           </b-navbar>
       </div>
   </div>
@@ -108,6 +107,10 @@ export default {
        goto: function (event) {
          this.$router.go(0);
        }
+      //  ,
+      //  pagechange:function (event) {
+      //       this.$router.push({path:'/index' });
+      //  }
     }
 }
 </script>

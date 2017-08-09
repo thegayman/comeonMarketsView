@@ -6,7 +6,7 @@
   					width="500" height="330" alt="会员登录" title="会员登录">
   			</div>
   		</div>
-  	<div class="span12 last">
+  	<div class="span8 last">
   		<div class="wrap">
   			<div class="main">
   				<div class="title">

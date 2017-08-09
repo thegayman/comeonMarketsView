@@ -118,7 +118,7 @@ export default {
     return {
 			product:{},
 			stock:0,
-			produceNum:0
+			produceNum:1
     }
   },
 	created (){
@@ -132,6 +132,13 @@ export default {
 				if (res.data !=undefined) {
 					 this.product=res.data ;
 					 this.stock = this.product.stock;
+				 }
+				 if(sessionStorage.uid!=undefined){
+					 var params = new URLSearchParams();
+	         params.append('uid', sessionStorage.uid);
+	         this.$ajax.post('http://localhost:9090/shopcar/querycount',params).then(res=>{
+	           this.$store.commit("addcar",res.data);
+	         });
 				 }
 			});
     },
@@ -152,14 +159,15 @@ export default {
 				ShoppingCart.count=this.produceNum;
 				ShoppingCart.proPrice=this.product.shop_price;
 				params.append('ShoppingCart', JSON.stringify(ShoppingCart));
-				this.$ajax.post('http://localhost:9090/shopcar/add',params );
-				//更新购物车数量
-				var params = new URLSearchParams();
-        params.append('uid', sessionStorage.uid);
-        this.$ajax.post('http://localhost:9090/shopcar/querycount',params).then(res=>{
-          this.$store.commit("addcar",res.data);
-        });
-				alert("添加成功");
+				this.$ajax.post('http://localhost:9090/shopcar/add',params).then(res=>{
+					//更新购物车数量
+					var params = new URLSearchParams();
+	        params.append('uid', sessionStorage.uid);
+	        this.$ajax.post('http://localhost:9090/shopcar/querycount',params).then(res=>{
+	          this.$store.commit("addcar",res.data);
+	        });
+					alert("添加成功");
+				});
 			}else{
 				alert("请先登录");
 			}
@@ -186,7 +194,7 @@ export default {
 				this.produceNum = 1;
 			}else if(this.produceNum > this.stock){
 					alert("亲！您的购买数量已达上限！！");
-					this.produceNum = 1;
+					this.produceNum = this.stock;
 			}
 		}
 	}

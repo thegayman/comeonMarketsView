@@ -6,7 +6,7 @@
 					width="500" height="330" alt="会员登录" title="会员登录">
 			</div>
 		</div>
-		<div class="span12 last">
+		<div class="span10 last">
 			<div class="wrap">
 				<div class="main">
 					<div class="title">
@@ -88,6 +88,8 @@ export default {
             var username=sessionStorage.username;
             if(username!=undefined){
               this.$store.commit("login",username)
+              this.$router.push({path:'/' });
+
               /*更新购物车数量*/
               var params = new URLSearchParams();
               params.append('uid', sessionStorage.uid);
